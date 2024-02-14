@@ -38,3 +38,43 @@ Gracias a su sistema operativo, la Raspberry Pi se usa comunmente como un ordena
 **Otras Características Relevantes:**
 
 - **Adaptador USB incorporado:** La Pico cuenta con un adaptador USB incorporado, simplificando la conexión, la programación y la alimentación.
+
+## Ejercicio 6: caso de estudio
+
+- ¿Cómo se ejecuta este programa?
+  Este programa implementa una máquina de estados finitos (FSM) en un entorno Arduino. Aquí hay un resumen de cómo funciona:
+
+1. **Definición de Estados y Variables:**
+   - Se define un tipo enumerado `Task1States` con dos estados: `INIT` y `WAIT_TIMEOUT`.
+   - Se declara una variable estática `task1State` para mantener el estado actual de la máquina de estados.
+
+2. **Inicialización:**
+   - En la función `task1()`, se utiliza un `switch` para gestionar diferentes estados.
+   - En el estado `INIT`, se realiza la inicialización, como la configuración de la comunicación serial (`Serial.begin(115200)`), se establece el tiempo inicial y se cambia al estado `WAIT_TIMEOUT`.
+
+3. **Máquina de Estados:**
+   - En el estado `WAIT_TIMEOUT`, se verifica si ha pasado un intervalo de tiempo (`INTERVAL`) desde la última acción.
+   - Si se cumple la condición, se realiza la acción (en este caso, imprimir el tiempo actual en milisegundos).
+
+4. **Función de Configuración:**
+   - La función `setup()` llama a `task1()` y se ejecuta una vez al inicio para realizar configuraciones iniciales.
+
+5. **Bucle Principal:**
+   - La función `loop()` llama repetidamente a `task1()`, permitiendo que la máquina de estados FSM continúe operando en un bucle infinito.
+
+En resumen, este programa utiliza una máquina de estados para ejecutar acciones en intervalos regulares, donde la acción específica depende del estado actual. En este caso, el programa imprime el tiempo actual en milisegundos en la comunicación serial cada vez que ha transcurrido un intervalo definido.
+
+- Pudiste ver este mensaje: `Serial.print("Task1States::WAIT_TIMEOUT\n");`. ¿Por qué crees que ocurre esto?
+
+  - principalmente no, porque la instruccion de imprimir el texto esta despues de la instruccion de cambiar el estado de la maquina, por lo que la maquina cambiaba de estado antes de poder imprimir el mensaje, pero agregando un delay y moviendo la instruccion arriba del cambio de estado, permite al micro-controlador procesar e imprimir el mensaje correctamente
+    
+- ¿Cuántas veces se ejecuta el código en el case Task1States::INIT?
+
+  solo una vez que es cuando inicia el programa, posteriormente se cambia al estado WAIT_TIMEOUT y se queda en bucle en este estado.
+
+  ## Ejercicio 7: análisis del programa de prueba
+
+- Observa la función millis(); ¿Para qué sirve? Recuerda que puedes buscar en Internet.
+
+  La funcion millis(); sirve para devolver el nuemero de milisegundos transcurridos desde que el programa comienza a ejecutarse ,es útil para medir el tiempo entre eventos, realizar acciones periódicas o implementar temporizadores en programas para plataformas Arduino.
+
