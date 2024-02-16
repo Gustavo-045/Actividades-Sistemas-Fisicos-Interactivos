@@ -78,3 +78,15 @@ En resumen, este programa utiliza una máquina de estados para ejecutar acciones
 
   La funcion millis(); sirve para devolver el nuemero de milisegundos transcurridos desde que el programa comienza a ejecutarse ,es útil para medir el tiempo entre eventos, realizar acciones periódicas o implementar temporizadores en programas para plataformas Arduino.
 
+## Ejercicio 8: retrieval practice (evaluación formativa)
+
+En el README.md del repositorio responde:
+
+- ¿Cuáles son los estados del programa?
+    INIT, WAIT_TIMEOUT1, WAIT_TIMEOUT2, WAIT_TIMEOUT3
+  
+- ¿Cuáles son los eventos?
+  Transiciones entre estados: INIT-WAITTIMEOUT1, WAITTIMEOUT1-WAITTIMEOUT2, WAITTIMEOUT2-WAITTIMEOUT3, estos eventos tienen una condicion, que consiste en un IF que verifica si el tiempo transcurrido es superior o igual a los distintos intervalos establecidos anteriormente (INTERVAL1, INTERVAL2, INTERVAL3), si la condicion se cumple, se pasa a los siguientes estados
+  
+- ¿Cuáles son las acciones?
+    imprimir los textos (hola, este es el mensaje #) mediante serial.print
