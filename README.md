@@ -83,10 +83,35 @@ En resumen, este programa utiliza una máquina de estados para ejecutar acciones
 En el README.md del repositorio responde:
 
 - ¿Cuáles son los estados del programa?
+  
     INIT, WAIT_TIMEOUT1, WAIT_TIMEOUT2, WAIT_TIMEOUT3
   
 - ¿Cuáles son los eventos?
-  Transiciones entre estados: INIT-WAITTIMEOUT1, WAITTIMEOUT1-WAITTIMEOUT2, WAITTIMEOUT2-WAITTIMEOUT3, estos eventos tienen una condicion, que consiste en un IF que verifica si el tiempo transcurrido es superior o igual a los distintos intervalos establecidos anteriormente (INTERVAL1, INTERVAL2, INTERVAL3), si la condicion se cumple, se pasa a los siguientes estados
+  
+  Transiciones entre estados: INIT-WAITTIMEOUT1, WAITTIMEOUT1-WAITTIMEOUT2, WAITTIMEOUT2-WAITTIMEOUT3, estos eventos tienen una condicion, que consiste en un IF que verifica si el     
+  tiempo transcurrido es superior o igual a los distintos intervalos establecidos anteriormente (INTERVAL1, INTERVAL2, INTERVAL3), si la condicion se cumple, se pasa a los siguientes 
+  estados
   
 - ¿Cuáles son las acciones?
+  
     imprimir los textos (hola, este es el mensaje #) mediante serial.print
+
+ ## Ejercicio 11: realiza algunas pruebas
+
+ - Analiza el programa. ¿Por qué enviaste la letra con el botón send? ¿Qué evento verifica si ha llegado algo por el puerto serial?
+   
+     if (Serial.available() > 0)
+   
+ - Analiza los números que se ven debajo de las letras. Nota que luego de la r, abajo, hay un número. ¿Qué es ese número?
+   
+ - ¿Qué relación encuentras entre las letras y los números?
+   
+    que cada letra corresponde a la posicion numerica del numero , es decir "6f", la f esta en la posicion numero 6 del abecedario
+
+- ¿Qué es el 0a al final del mensaje y para qué crees que sirva?
+
+    El "0a" al final del mensaje es un valor hexadecimal que representa el 10, 0a (10) indica que después de la palabra "computador", debería comenzar una nueva línea en el mensaje.
+   
+
+ 
+ 
