@@ -111,7 +111,22 @@ En el README.md del repositorio responde:
 - ¿Qué es el 0a al final del mensaje y para qué crees que sirva?
 
     El "0a" al final del mensaje es un valor hexadecimal que representa el 10, 0a (10) indica que después de la palabra "computador", debería comenzar una nueva línea en el mensaje.
-   
+  
+## Ejercicio 12: punteros
+
+- ¿Cómo se declara un puntero?
+  uint32_t *pvar
+
+- ¿Cómo se define un puntero? (cómo se inicializa)
+
+- ¿Cómo se obtiene la dirección de una variable?
+  uint32_t *pvar = &var;
+  
+- ¿Cómo se puede leer el contenido de una variable por medio de un puntero?
+  Serial.print(*pvar);
+  
+- ¿Cómo se puede escribir el contenido de una variable por medio de un puntero?
+  *pvar = 10;
 
  
  
