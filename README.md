@@ -115,17 +115,21 @@ En el README.md del repositorio responde:
 ## Ejercicio 12: punteros
 
 - ¿Cómo se declara un puntero?
+  
   uint32_t *pvar
 
 - ¿Cómo se define un puntero? (cómo se inicializa)
 
 - ¿Cómo se obtiene la dirección de una variable?
+  
   uint32_t *pvar = &var;
   
 - ¿Cómo se puede leer el contenido de una variable por medio de un puntero?
+  
   Serial.print(*pvar);
   
 - ¿Cómo se puede escribir el contenido de una variable por medio de un puntero?
+  
   *pvar = 10;
 
  
