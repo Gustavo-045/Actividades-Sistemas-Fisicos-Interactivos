@@ -14,8 +14,8 @@ void task1()
     {
     case Task1States::CONFIG:
     {
-        char TeclaRecibida;
-
+  
+      char TeclaRecibida;
     
               /*Serial.print("CONFIG - Tiempo para abrir la boveda: ");
               Serial.println(TiempoParaAbrir);
@@ -38,7 +38,7 @@ void task1()
                     TiempoParaAbrir++;
                     Serial.println("Tiempo para abrir la boveda: " + String(TiempoParaAbrir));
                 }
-                else if (TeclaRecibida == 'A')
+                else if (TeclaRecibida == 'B')
                 {
                     TiempoParaAbrir--;
                     Serial.println("Tiempo para abrir la boveda: " + String(TiempoParaAbrir));
@@ -54,46 +54,72 @@ void task1()
         break;
     }
 
-    case Task1States::PROCESO:
+   case Task1States::PROCESO:
+{
+    lastTime = TiempoParaAbrir;
+
+    while (lastTime > 0)
     {
-
-      lastTime = 0;
-      lastTime = TiempoParaAbrir;
-
-      while (lastTime>0)
-      {
-
         Serial.println(lastTime);
+
+        // Verificar si hay datos disponibles en el puerto serial
+        if (Serial.available() > 0)
+        {
+            char inputChar = Serial.read();
+
+            // Verificar si el primer carácter es 'C'
+            if (inputChar == 'C')
+            {
+                // Leer los siguientes cuatro caracteres como números
+                char code[4];
+                for (int i = 0; i < 4; ++i)
+                {
+                    if (Serial.available() > 0)
+                    {
+                        code[i] = Serial.read();
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+
+                int enteredCode = atoi(code);
+
+                if (enteredCode == 1234)
+                {
+                    Serial.println("¡Salvaste al mundo!");
+
+                    task1State = Task1States::FINAL;
+                    break;  
+                }
+                else
+                {
+                    Serial.println("Contraseña incorrecta");
+                }
+            }
+        }
+
         lastTime--;
         delay(1000);
-      }
-      
-
-
-              
-
- 
-       
-       if (lastTime <= 0) 
-       {
-        Serial.println("se acabo el tiempo");
-        task1State = Task1States::FINAL;
-       }
-      
-
-
-
-      
-        // Evento 1:
-
-        break;
     }
+
+    // Verificar si la cuenta regresiva ha terminado
+    if (lastTime <= 0)
+    {
+        Serial.println("Se acabó el tiempo, RADIACION NUCLEAR ACTIVA");
+        task1State = Task1States::FINAL;
+    }
+
+    break;
+}
 
         case Task1States::FINAL:
     {
    
        
-        Serial.println("Radiacion Nuclear Activa");
+
         TiempoParaAbrir = 5;
         lastTime = 0;
         task1State = Task1States::CONFIG;
