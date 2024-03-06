@@ -1,10 +1,12 @@
 enum class Task1States {
     CONFIG,
-    PROCESO
+    PROCESO,
+    FINAL
 };
 
 static Task1States task1State = Task1States::CONFIG;
 static uint8_t TiempoParaAbrir = 5;
+static uint32_t lastTime;
 
 void task1()
 {
@@ -14,12 +16,15 @@ void task1()
     {
         char TeclaRecibida;
 
+    
+              /*Serial.print("CONFIG - Tiempo para abrir la boveda: ");
+              Serial.println(TiempoParaAbrir);
+              Serial.println("Presiona S para aumentar la cantidad de segundos y A para disminuirla, Presiona L para aceptar los cambios");
+              */
 
-        /*Serial.print("CONFIG - Tiempo para abrir la boveda: ");
-        Serial.println(TiempoParaAbrir);
-        Serial.println("Presiona S para aumentar la cantidad de segundos y A para disminuirla, Presiona L para aceptar los cambios");
-        Serial.begin(115200);
-        */
+
+
+
         
         if (Serial.available() > 0)
         {
@@ -52,23 +57,29 @@ void task1()
     case Task1States::PROCESO:
     {
 
-      
-      static uint32_t lastTime = TiempoParaAbrir;
-      lastTime--;
-      delay(1000);
+      lastTime = 0;
+      lastTime = TiempoParaAbrir;
 
+      while (lastTime>0)
+      {
+
+        Serial.println(lastTime);
+        lastTime--;
+        delay(1000);
+      }
       
-      
-       if (lastTime != 0)
-       {
-       
-              Serial.println(lastTime);
+
+
+              
+
  
-       }
-       else 
+       
+       if (lastTime <= 0) 
        {
         Serial.println("se acabo el tiempo");
+        task1State = Task1States::FINAL;
        }
+      
 
 
 
@@ -78,12 +89,29 @@ void task1()
         break;
     }
 
+        case Task1States::FINAL:
+    {
+   
+       
+        Serial.println("Radiacion Nuclear Activa");
+        TiempoParaAbrir = 5;
+        lastTime = 0;
+        task1State = Task1States::CONFIG;
+
+        break;
+    }
+    
+
+    
+
     default:
     {
         break;
     }
-    }
 }
+}
+    
+
 
 void setup()
 {
@@ -95,3 +123,5 @@ void loop()
     task1();
     // Aquí puedes agregar otras tareas que se ejecuten en el bucle principal si es necesario.
 }
+
+
