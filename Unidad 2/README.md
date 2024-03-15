@@ -41,3 +41,8 @@ if(Serial.read() == '1'){
      la placa madre). Al configurar correctamente las propiedades PortName y BaudRate, estás informando al controlador sobre cómo comunicarse con el     
      dispositivo conectado al puerto serie. El controlador utiliza esta información para establecer la comunicación con el dispositivo y garantizar que los 
      datos se transmitan correctamente entre la computadora y el dispositivo externo.
+
+-  Ejecuta la aplicación en Unity. Verás un número cambiar rápidamente en pantalla. Ahora presiona la tecla A (no olvides dar click en la pantalla Game). ¿Qué pasa? ¿Por qué crees que ocurra esto?
+
+      porque la seccion del codigo que se encarga de aumentar el contador esta dentro de la funcion update, lo que causa que se actualize en cada frame del 
+      juego, es decir si el programa se ejectua a 20 frames por segundo entonces a esa velocidad se actualizara el contador
