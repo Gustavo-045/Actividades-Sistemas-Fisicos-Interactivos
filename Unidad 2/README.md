@@ -46,3 +46,19 @@ if(Serial.read() == '1'){
 
       porque la seccion del codigo que se encarga de aumentar el contador esta dentro de la funcion update, lo que causa que se actualize en cada frame del 
       juego, es decir si el programa se ejectua a 20 frames por segundo entonces a esa velocidad se actualizara el contador
+
+
+   ### ¿Qué pasaría si al momento de ejecutar la instrucción int numData = _serialPort.Read(buffer, 0, 20); solo han llegado 10 de los 16 bytes del mensaje?
+
+     Si al momento de ejecutar la instrucción `_serialPort.Read(buffer, 0, 20);` solo han llegado 10 de los 16 bytes del mensaje, la función `Read()` 
+     intentará leer hasta 20 bytes del puerto serie, pero solo leerá los 10 bytes disponibles en ese momento. 
+
+     Esto significa que la función `_serialPort.Read()` solo leerá los bytes que estén disponibles en el búfer en ese momento y los almacenará en el arreglo 
+     `buffer`. En este caso, `numData` contendrá el valor 10, indicando la cantidad de bytes que se han leído correctamente.
+
+      la función `Read()` no espera hasta que se reciban todos los bytes especificados antes de leer. En cambio, lee los 
+     bytes disponibles en el momento de la llamada y retorna inmediatamente con la cantidad de bytes leídos.
+
+   ### ¿Cómo puede hacer tu programa para saber que ya tiene el mensaje completo?
+   
+      el programa actualmente no tiene ninguna lógica para esperar o verificar que el mensaje esté completo. Simplemente lee hasta 20 bytes del puerto serie       cada vez que se activa la condición _serialPort.BytesToRead > 0
